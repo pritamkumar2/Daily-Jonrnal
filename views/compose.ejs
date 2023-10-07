@@ -1,0 +1,32 @@
+<%- include('header.ejs') %>
+
+<main>
+  <div class="container">
+    <h2 class="compose">compose</h2>
+    <form action="/post" method="POST">
+      <label for="title">Title:</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        placeholder="Enter the title"
+        required
+      />
+
+      <label for="post">Post:</label>
+      <textarea
+        id="post"
+        name="post"
+        placeholder="Write your post here"
+        rows="4"
+        required
+      ></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- Your page content goes here -->
+</main>
+
+<%- include('footer.ejs') %>
