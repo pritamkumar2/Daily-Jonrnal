@@ -33,13 +33,15 @@ const contactContent =
   "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
-
-app.get("/", (req, res) => {
-  res.render("home.ejs");
+const updatedPost = await blogData.find();
+app.get("/", async (req, res) => {
+  const updatedPost = await blogData.find();
+  console.log(updatedPost, "<-noothing");
+  res.render("home.ejs", { postData: updatedPost });
 });
 
 //compose the post request
-app.get("/compose", (req, res) => {
+app.get("/compose", async (req, res) => {
   res.render("compose.ejs");
 });
 
@@ -47,19 +49,27 @@ app.get("/compose", (req, res) => {
 app.post("/post", async (req, res) => {
   const title = req.body.title;
   const post = req.body.post;
-  try {
-    const newPost = await blogData.insertMany({
-      title: title,
-      post: post,
-      date: new Date(),
-    });
-    const updatedPost = await blogData.find();
-    console.log(updatedPost);
-  } catch (error) {
-    console.error("Error inserting data:", error);
-    res.status(500).send("Internal Server Error");
+  //check if title,post exists or not
+  const isEmptyOrSpaces = (str) => {
+    return str === null || str.match(/^ *$/) !== null;
+  };
+
+  if (isEmptyOrSpaces(title) || isEmptyOrSpaces(post)) {
+    res.send("No data provided. Please enter a valid title and post.");
+  } else {
+    try {
+      const newPost = await blogData.insertMany({
+        title: title,
+        post: post,
+        date: new Date(),
+      });
+      const updatedPost = await blogData.find();
+      res.render("home.ejs", { postData: updatedPost }); // Specify the correct template file (e.g., "home.ejs")
+    } catch (error) {
+      console.error("Error inserting data:", error);
+      res.status(500).send("Internal Server Error");
+    }
   }
-  res.render("compose.ejs");
 });
 
 // listen to the port

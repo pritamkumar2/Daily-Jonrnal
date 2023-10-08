@@ -14,20 +14,44 @@
       rel="stylesheet"
     />
 
-    <nav class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header">
-          <p class="navbar-brand">DAILY JOURNAL</p>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-          <!-- 6 -->
-          <li id="home"><a href="#">HOME</a></li>
-          <li id="about"><a href="#">ABOUT US</a></li>
-          <li id="contact"><a href="#">CONTACT US</a></li>
-        </ul>
-      </div>
-    </nav>
+    <body>
+      <!-- Create a navigation bar with Bootstrap -->
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <!-- Add a hamburger icon and button for small screens -->
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#navbar"
+              aria-expanded="false"
+              aria-controls="navbar"
+            >
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">DAILY JOURNAL</a>
+          </div>
 
-    <body></body>
+          <!-- Create a collapsible navbar -->
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <!-- Add your navigation links here -->
+              <li id="home"><a href="/">HOME</a></li>
+              <li id="about"><a href="#">ABOUT US</a></li>
+              <li id="contact"><a href="#">CONTACT US</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Add the rest of your page content here -->
+
+      <!-- Include Bootstrap JavaScript and jQuery -->
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
 </html>

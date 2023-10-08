@@ -1,0 +1,16 @@
+<%- include('header.ejs') %>
+
+<main>
+  <% if (locals.postData) { %> <% postData.forEach(function (post) { %>
+  <div class="container2">
+    <div class="post">
+      <div class="title"><%= post.title %></div>
+      <div class="post-text"><%= post.post %></div>
+    </div>
+  </div>
+  <% }); %> <% } else { %>
+  <p>No posts to display.</p>
+  <% } %>
+</main>
+
+<%- include('footer.ejs') %>
