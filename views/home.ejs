@@ -5,7 +5,12 @@
   <div class="container2">
     <div class="post">
       <div class="title"><%= post.title %></div>
-      <div class="post-text"><%= post.post %></div>
+      <!-- Display a portion of the post content -->
+      <div class="post-text">
+        <%= post.post.substring(0, 200) %>...<a href="/blog/<%= post._id %>"
+          >read me</a
+        >
+      </div>
     </div>
   </div>
   <% }); %> <% } else { %>

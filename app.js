@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 // database
 mongoose
   .connect(
-    "mongodb+srv://pritam1:pritam123@cluster0.45zeamf.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://pritam1:pritam123@cluster0.45zeamf.mongodb.net/app?retryWrites=true&w=majority"
   )
   .then(() => console.log("Connected!"));
 ///////////////////////
@@ -36,7 +36,7 @@ app.use(express.static("public"));
 const updatedPost = await blogData.find();
 app.get("/", async (req, res) => {
   const updatedPost = await blogData.find();
-  console.log(updatedPost, "<-noothing");
+
   res.render("home.ejs", { postData: updatedPost });
 });
 
@@ -71,7 +71,28 @@ app.post("/post", async (req, res) => {
     }
   }
 });
+app.get("/blog/:postId", async (req, res) => {
+  const postId = req.params.postId;
+  console.log(postId);
+  try {
+    const post = await blogData.findOne({ _id: postId });
+    console.log(post, "<---------------post data");
+    if (!post) {
+      return res.status(404).send("Post not found");
+    }
+    res.render("post.ejs", { post: post }); // Create a template for displaying full posts (e.g., "fullpost.ejs")
+  } catch (error) {
+    console.error("Error retrieving post:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
+app.get("/about", (req, res) => {
+  res.render("about.ejs");
+});
+app.get("/contact", (req, res) => {
+  res.render("contact.ejs");
+});
 // listen to the port
 app.listen(port, function () {
   console.log("Server started on port 3000");
