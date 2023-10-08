@@ -166,3 +166,6 @@ button:hover {
     transform: translateY(0);
   }
 }
+.newspaper {
+  background-color: bisque;
+}
